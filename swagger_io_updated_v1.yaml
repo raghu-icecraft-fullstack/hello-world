@@ -1,0 +1,699 @@
+openapi: 3.0.3
+info:
+  title: SAPI Offers v2
+  description: Sales API Offers v2. Uses SAPI V4 Data structure formats
+  version: 1.0.1
+  contact:
+    name: Homesite API Support
+    email: support@homeiste.com
+    url: 'http://homesite.com/support'
+tags:
+  - name: offers
+    description: Everything about your Offers
+paths:
+  /v2/sapi-offers/offers:
+    post:
+      tags:
+        - offers
+      summary: Create Offer(s)
+      description: Create Offer(s) from the quote response returned from Carrier(s)
+      operationId: offersPost
+      requestBody:
+        description: Request generated from Answers
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Answers'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferSet'
+  /v2/sapi-offers/offers/{offerSetId}:
+    put:
+      tags:
+        - offers
+      summary: Update / Recalculate Offer(s)
+      description: Request for recalculation of offer(s)
+      operationId: offersPatch
+      parameters:
+        - in: path
+          name: offerSetId
+          description: The offerSetId of previous Offers
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Recalculating offer(s) from Answers
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Answers'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferSet'
+    get:
+      tags:
+        - offers
+      summary: Get Offers
+      description: Retrieves data for offer(s)
+      operationId: offersGet
+      parameters:
+        - in: path
+          name: offerSetId
+          description: The offerSetId of previous Offers
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferSet'
+components:
+  schemas:
+    Answers:
+      type: object
+      properties:
+        quote:
+            properties:
+              quoteId:
+                type: number
+              quoteType:
+                type: string
+        partner:
+                 $ref: '#/components/schemas/Partner'
+        system:
+                 $ref: '#/components/schemas/System'
+        producer:
+                 $ref: '#/components/schemas/Producer'
+        thirdPartyInterests:
+                 $ref: '#/components/schemas/ThirdPartyInterests'
+        acknowledgements:
+                 $ref: '#/components/schemas/Acknowledgement'
+        addresses:
+          type: array
+          items: 
+            $ref: '#/components/schemas/Addresses'
+        persons:
+                 type: array
+                 items:
+                   $ref: "#/components/schemas/Person"
+        drivers:
+                 type: array
+                 items:
+                   $ref: "#/components/schemas/Drivers"
+        vehicles:
+          properties:
+              additionalUsageDetails:
+                type: string
+              features:
+                  required:
+                        - antitheft
+                        - airbag
+                        - antiLockBrakes
+                        - dayTimeRunningLights
+                        - electronicStabilityControl
+                  properties:
+                      airbag: 
+                          type: string
+                      antiLockBrakes: 
+                          type: boolean
+                      antitheft: 
+                          type: boolean
+                      dayTimeRunningLights: 
+                          type: boolean
+                      electronicStabilityControl: 
+                          type: boolean
+                  type: object
+              garagingAddressRefId: 
+                  type: string
+              make: 
+                  type: string
+              model: 
+                  type: string
+              msrp: 
+                  type: string
+              occasionalDriverRefId:
+                  type: string
+              ownershipType: 
+                  type: string
+              primaryDriverRefId: 
+                  type: string
+              primaryUse: 
+                  type: string
+              series: 
+                  type: string
+              stubVin: 
+                  type: string
+              vehicleCoverages: {}
+              vehicleDiscounts:
+                properties:
+                  discountAmount: 
+                      type: string
+                  discountName: 
+                      type: string
+              vehicleId: 
+                  type: string
+              vehiclePremiums:
+                properties:
+                  companionPolicies:
+                    properties:
+                        productLine: 
+                          type: string
+                        underwritingCompany: 
+                          type: string
+                  fees:
+                    properties:
+                      feeType: 
+                        type: string
+                      name: 
+                        type: string
+                      value: 
+                        type: string
+                  paymentSchedules:
+                    properties:
+                      downPayment: 
+                        type: string
+                      installment: 
+                        type: string
+                      paymentPlan: 
+                        type: string
+                      premium: 
+                        type: string
+                  premiumType: 
+                    type: string
+                  totalDiscount: 
+                    type: string
+                  totalPremium: 
+                    type: string
+              vin: 
+                type: string
+              year: 
+                type: string
+        dwelling:
+                 $ref: '#/components/schemas/Dwelling'
+        coverageOptions:
+                 type: array
+                 items:
+                   $ref: "#/components/schemas/CoverageOptions"
+
+    OfferSet:
+      type: object
+      properties:
+        offerSetId:
+          type: string
+        coverageGroups:
+          type: array
+          items:
+            type: object
+            properties:
+              coverageGropuId:
+                type: number
+              productLine:
+                type: string
+              underwritingCompany:
+                type: string
+              quoteStatus:
+                type: string
+              reasons:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    code:
+                      type: string 
+                    discription:
+                      type: string
+              state:
+                type: string
+              packageName:
+                type: string
+              policy:
+                 $ref: '#/components/schemas/Policy'
+              policyCoverages:
+               type: array
+               items:
+                 $ref: "#/components/schemas/Coverage"
+                 
+              discounts:
+                 type: array
+                 items:
+                   $ref: "#/components/schemas/Discount"
+              driverDiscounts:
+                 type: array
+                 items:
+                   $ref: "#/components/schemas/DriverDiscount"
+              offerDetails:
+                 $ref: '#/components/schemas/OfferDetails'
+              disclosures:
+                  properties: {}
+              vehicles:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vehicle'
+
+                  
+    Coverage:
+      type: object
+      properties:
+        coverageCode:
+          type: string
+        premium:
+          type: number
+        references:
+          type: array
+          items: 
+            $ref: '#/components/schemas/references'
+    references:
+        type: object
+        properties:
+          <name>:
+            type: string
+          <value>:
+            type: string
+
+    Discount: 
+      type: object
+      properties:
+        discountName:
+          type: string
+        discountAmount:
+          type: string
+
+    Vehicle:
+      type: object
+      properties:
+        vehicleId:
+          type: string
+        vehiclePremiums:
+          type: object
+          properties:
+            totalPremium:
+              type: string
+        vehicleCoverages:
+          type: array
+          items: 
+            $ref: '#/components/schemas/Coverage'
+        vehicleDiscounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Discount'
+    DriverDiscount:
+      type: object
+      properties:
+        personRefId:
+          type: string
+        discounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Discount'
+    Policy:
+      type: object
+      properties:
+        policyNumber: 
+          type: string
+        totalPremium:
+          type: number
+        fullTermPayment:
+          type: string
+        monthlyPaymentPremium:
+          type: number
+        primaryInsuredRefId:
+          type: string
+        secondaryInsuredRefId:
+          type: string
+        paymentSchedule:
+          type: string
+        policyMinEffectiveDate:
+          type: string
+        policyMaxEffectiveDate:
+          type: string
+        policyEffectiveDate:
+          type: string
+    OfferDetails:
+      type: object
+      properties:
+        quoteNumber: 
+          type: number
+        offerKeys:
+          type: number
+        key1:
+          type: number
+        key2:
+          type: number
+    Addresses:
+      properties:
+          addressId: 
+              type: string
+          addressTypes:
+              type: string
+          city: 
+              type: string
+          latitude: 
+              type: string
+          line1: 
+              type: string
+          line2: 
+              type: string
+          longitude: 
+              type: string
+    Acknowledgement:
+      properties:
+        creditDisclosureInitials:
+          type: string
+        creditDisclosureFlag:
+          type: boolean
+    ThirdPartyInterests:
+      properties:
+          addressRefId: 
+            type: string
+          emailAddress: 
+            type: string
+          name: 
+            type: string
+          phone: 
+            type: string
+          thirdPartyInterestId: 
+            type: string
+          thirdPartyInterestType: 
+            type: string
+    Producer:
+      properties:
+        producerId:
+          type: number
+        agencyCode:
+          type: number
+    System:
+      required:
+        - prefillTriggered
+        - someOtherIdentifier
+      properties:
+        prefillTriggered:
+          type: boolean
+        someOtherIdentifier:
+          type: boolean
+        quoteCreatiomDate:
+          type: string
+        riskReport:
+          properties:
+            riskReportID:
+              type: number
+            riskReportType:
+              type: string
+            source:
+              type: string
+        valuationId:
+          type: string
+        prefillFlow:
+          type: string
+    Partner:
+      properties:
+        amfAccountNumber: 
+          type: string
+        deptNumber: 
+          type: string
+        experienceId: 
+          type: string
+        experienceModeCode: 
+          type: string
+        experienceName: 
+          type: string
+        level1Number: 
+          type: string
+        level2Number: 
+          type: string
+        level3Number: 
+          type: string
+        locationNumber: 
+          type: string
+        marketKeyCode: 
+          type: string
+        marketingId: 
+          type: string
+        partnerId: 
+          type: string
+        salesChannel: 
+          type: string
+        userID: 
+          type: string
+          
+    CoverageOptions:
+      properties:
+          coverageOptionId: 
+              type: string
+          effectiveDate: 
+              type: string
+          isBundled: 
+              type: boolean
+          packageName: 
+              type: string
+          policyCoverages: 
+              properties: {}
+          productLine: 
+              type: string
+          requestedRate: 
+              type: string
+          state: 
+              type: string
+          status: 
+              type: string
+          underwritingCompany: 
+              type: string
+          underwritingCompanyCode: 
+              type: string
+          vehicles:
+              properties:
+                  vehicleCoverages: 
+                      properties: {}
+                  vehicleId: 
+                      type: string
+    Person:
+      properties:
+        personId:
+          type: number
+        entCustomerId:
+          type: number
+        dateOfBirth:
+          type: string
+        email:
+          type: string
+        suffix:
+          type: string
+        firstName:
+          type: string
+        middleName:
+          type: string
+        lastName:
+          type: string
+        socialSecurityNumber:
+          type: number
+        phoneNumber:
+          type: number
+        phoneUsage:
+          type: number
+        gender:
+          type: string
+        maritalStatus:
+          type: boolean
+        personType:
+          type: array
+          items:
+            type: string 
+        additionalInforamtion:
+            properties:
+              isPaperless:
+                type: boolean
+              isCostcoMember:
+                type: boolean
+              costcoMembershipType:
+                type: string
+              homeOwnershipType:
+                type: string
+        marketing:
+            properties: {}
+        partnerAutoPolicy:
+          type: boolean
+        existingPolicy:
+          type: boolean
+    Drivers:
+      properties:
+        awayAtSchool: 
+            type: boolean
+        defensiveDriver:
+            type: boolean
+        driverId:
+            type: string
+        driverStatus: 
+            type: string
+        driversLicense:
+          properties:
+            ageFirstLicensed:
+              type: string
+            driversLicenseStatus: 
+              type: string
+            number: 
+              type: string
+            state: 
+              type: string
+        educationLevel: 
+            type: string
+        goodStudent: 
+            type: boolean
+        personRefId: 
+            type: string
+        priorCarrier:
+          properties:
+            bodilyInjury: 
+              type: string
+            collision: 
+              type: boolean
+            comprehensive: 
+              type: boolean
+            name: 
+              type: string
+            policyEndDate: 
+              type: string
+            policyYears: 
+              type: string
+            propertyDamage: 
+              type: string
+        violationFree: 
+            type: boolean
+        violations:
+           properties: {}
+    Type:
+      properties:
+        type:
+          type: string
+        percent:
+          type: number
+    Dwelling:
+      properties:
+        additionalFactors: {}
+        details:
+          properties:
+            airConditioning: 
+              type: boolean
+            basements:
+              properties:
+                finishedPercentage: 
+                  type: string
+                foundationType: 
+                  type: string
+            baths:
+              properties:
+                fullBathCount: 
+                    type: string
+                halfBathCount: 
+                    type: string
+            builtOnSlope: 
+              type: boolean
+            ceiling:
+              properties:
+                cathedralOrVaulted: 
+                    type: string
+                height: 
+                    type: string
+                roomsWithCrownMolding: 
+                    type: string
+            decks:
+              properties:
+                material: 
+                  type: string
+            dwellingStyle: 
+              type: string
+            dwellingType: 
+              type: string
+            everHeatedByOil: 
+              type: boolean
+            fireplaces:
+                type: string
+            floors:
+              properties:
+                percent: 
+                  type: string
+                type: 
+                  type: string
+            foundations:
+              properties:
+                percent: 
+                  type: string
+                type: 
+                  type: string
+            garages:
+              properties:
+                size: 
+                  type: string
+                type: 
+                  type: string
+            kitchenCountertopMaterial: 
+              type: string
+            livingAreaSQF: 
+              type: string
+            marketValue: 
+              type: string
+            multiFamily: 
+              type: boolean
+            numberOfUnits: 
+              type: string
+            oilTankLocation: 
+              type: string
+            pools:
+                type: string
+            porches:
+              properties:
+                material: 
+                  type: string
+            primaryHeatSource: 
+              type: string
+            roof:
+              properties:
+                anyPortionFlat: 
+                    type: boolean
+                installOrReplaceYear: 
+                    type: string
+                roofMaterial: 
+                    type: string
+                roofShape: 
+                    type: string
+            secondaryHeatSource: 
+              type: string
+            stories: 
+              type: string
+            walls:
+              properties:
+                extWalls:
+                  properties:
+                    percent: 
+                        type: string
+                    type: 
+                        type: string
+                intWalls:
+                  properties:
+                    percent: 
+                        type: string
+                    type: 
+                        type: string
+                yearBuilt: 
+                  type: string
+        dwellingId: 
+            type: string
+        dwellingPrimaryAddressRefId: 
+            type: string
+        policyTypeCode: 
+            type: string
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/amfament/sapi-offers-v2/1.0.1
