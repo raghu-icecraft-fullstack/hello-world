@@ -1,0 +1,59 @@
+
+1. loadWb(wbRequestData: any): Observable<any>
+
+Description: Fetches RX slot information based on the provided request data.
+
+Postman Call:  
+GET method  
+URL: {BASE_URL}/rxSlotInfoService?rx=<rxNo>&fill=<fillNo>  
+
+Response:  
+Success: Slot RX fill information (results.slotRxFillInfo).  
+Failure: Error message, "service failed".  
+
+2. slotInfo(): Observable<any>
+
+Description: Retrieves slot capacity information.
+
+Postman Call:  
+GET method  
+URL: {BASE_URL}/slotInfo  
+
+Response:  
+Success: Slot capacity details (results.slotcapacities).  
+
+
+3. getSlotNbrData(slotRequestData: any): Observable<any>
+
+Description: Fetches slot RX information for a specific slot.
+
+Postman Call:  
+GET method  
+URL: {BASE_URL}/slotRxInfo?slot=<slotNumber>  
+
+Response:  
+Success: Slot RX fill information (results.slotRxFillInfo).  
+
+
+4. wb(): Observable<any>
+
+Description: Fetches the waiting bin indicator details.
+
+Postman Call:  
+GET method  
+URL: {BASE_URL}/waitingBinIndicator  
+
+Response:  
+Success: Waiting bin indicator details.  
+
+
+5. storeUtil(): Observable<any>
+
+Description: Fetches store utilization indicator data.
+
+Postman Call:  
+GET method  
+URL: {BASE_URL}/storeUtilIndicator  
+
+Response:  
+Success: Store utilization indicator data.  
