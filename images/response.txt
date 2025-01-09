@@ -1,0 +1,153 @@
+https://rxa-storefrontone.stores.cvs.com/d4/store00621/storeutil/info/slot-capacity-info
+ 
+https://rxa-storefrontone.stores.cvs.com/d4/store00621/storeutil/info/slot-rx-info?slot=123
+ 
+https://rxa-storefrontone.stores.cvs.com/d4/store00621/storeutil/info/rx-slot-info?rx=123&fill=122
+
+
+
+
+1. response to API call 1
+
+{
+    "storeResponse": {
+        "completionCode": 200,
+        "completionText": "SUCCESS",
+        "slotcapacities": [
+            {
+                "createdBy": "BLADEBATCH",
+                "createdDate": "2018-12-04T06:00:13.000+0000",
+                "lastModifiedBy": "BLADEBATCH",
+                "lastModifiedDate": "2025-01-09T06:03:45.000+0000",
+                "attributeName": "GeneratedSlotCapacity",
+                "attributeValue": "8",
+                "category": "Wbe"
+            },
+            {
+                "createdBy": "SYSTEM",
+                "createdDate": "2018-12-17T21:47:51.000+0000",
+                "lastModifiedBy": "SYSTEM",
+                "lastModifiedDate": "2019-03-18T23:51:55.000+0000",
+                "attributeName": "MaxSlotCount",
+                "attributeValue": "434",
+                "category": "Wbe"
+            },
+            {
+                "createdBy": "BLADEBATCH",
+                "createdDate": "2018-12-04T06:00:13.000+0000",
+                "lastModifiedBy": "BLADEBATCH",
+                "lastModifiedDate": "2025-01-09T06:03:45.000+0000",
+                "attributeName": "SlotIdealCapacity",
+                "attributeValue": "8",
+                "category": "Wbe"
+            },
+            {
+                "createdBy": "BLADEBATCH",
+                "createdDate": "2018-12-04T06:00:13.000+0000",
+                "lastModifiedBy": "BLADEBATCH",
+                "lastModifiedDate": "2025-01-09T06:03:45.000+0000",
+                "attributeName": "SlotStretchCapacity",
+                "attributeValue": "12",
+                "category": "Wbe"
+            },
+            {
+                "createdBy": "StoreSystem",
+                "createdDate": "2024-08-31T05:15:22.000+0000",
+                "lastModifiedBy": "StoreSystem",
+                "lastModifiedDate": "2025-01-09T09:57:03.000+0000",
+                "attributeName": "MaxActiveSlotLocation",
+                "attributeValue": "434",
+                "category": "Wbe"
+            }
+        ]
+    }
+}
+
+
+
+2. response to API call 2, API call 3
+
+{
+    "storeResponse": {
+        "completionCode": 200,
+        "completionText": "SUCCESS",
+        "slotRxFillInfo": [
+            {
+                "rxNum": "3741772",
+                "refillNum": 0,
+                "partialFillSeqNum": null,
+                "gcn": 36600,
+                "location": "123",
+                "createdDate": "2025-01-01T14:22:48.000+0000"
+            },
+            {
+                "rxNum": "3708041",
+                "refillNum": 2,
+                "partialFillSeqNum": null,
+                "gcn": 94200,
+                "location": "123",
+                "createdDate": "2025-01-05T05:58:03.000+0000"
+            },
+            {
+                "rxNum": "3743727",
+                "refillNum": 0,
+                "partialFillSeqNum": null,
+                "gcn": 93007,
+                "location": "123",
+                "createdDate": "2025-01-05T13:02:13.000+0000"
+            },
+            {
+                "rxNum": "3680839",
+                "refillNum": 1,
+                "partialFillSeqNum": null,
+                "gcn": 50815,
+                "location": "123",
+                "createdDate": "2025-01-06T02:21:20.000+0000"
+            },
+            {
+                "rxNum": "3743427",
+                "refillNum": 1,
+                "partialFillSeqNum": null,
+                "gcn": 19862,
+                "location": "123",
+                "createdDate": "2025-01-06T19:02:11.000+0000"
+            },
+            {
+                "rxNum": "3746813",
+                "refillNum": 0,
+                "partialFillSeqNum": null,
+                "gcn": 26320,
+                "location": "123",
+                "createdDate": "2025-01-08T12:50:46.000+0000"
+            },
+            {
+                "rxNum": "3747571",
+                "refillNum": 0,
+                "partialFillSeqNum": null,
+                "gcn": 15920,
+                "location": "123",
+                "createdDate": "2025-01-08T22:00:42.000+0000"
+            },
+            {
+                "rxNum": "3748258",
+                "refillNum": 0,
+                "partialFillSeqNum": null,
+                "gcn": 27176,
+                "location": "123",
+                "createdDate": "2025-01-09T18:13:30.000+0000"
+            },
+            {
+                "rxNum": "3748245",
+                "refillNum": 0,
+                "partialFillSeqNum": null,
+                "gcn": 16354,
+                "location": "123",
+                "createdDate": "2025-01-09T18:13:30.000+0000"
+            }
+        ]
+    }
+}
+
+
+
+3. response to API call 3
